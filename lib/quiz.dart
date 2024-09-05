@@ -1,4 +1,6 @@
+import 'package:QuizGame/data/questions.dart';
 import 'package:QuizGame/questions_screen.dart';
+import 'package:QuizGame/results_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:QuizGame/start_screen.dart';
 
@@ -16,6 +18,13 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswers(String ans) {
     selectedAnswers.add(ans);
+
+    if (selectedAnswers.length == questions.length) {
+      selectedAnswers = [];
+      setState(() {
+        currentScreen = "results_screen";
+      });
+    }
   }
 
   var currentScreen = "start_Screen"; // using string
@@ -26,12 +35,6 @@ class _QuizState extends State<Quiz> {
         body: bgcolor(), //bg color and it has start screen as a child
       ),
     );
-  }
-
-  void initState() {
-    // currentScreen = StartScreen(switchScreen); old technique
-
-    super.initState();
   }
 
   void switchScreen() {
@@ -51,6 +54,8 @@ class _QuizState extends State<Quiz> {
       screenWidget = QuestionsScreen(
         onAnswerGiven: chooseAnswers,
       );
+    } else if (currentScreen == "results_screen") {
+      screenWidget = ResultsScreen(chosenAnswers: selectedAnswers);
     }
 
     return Container(

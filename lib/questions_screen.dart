@@ -1,5 +1,4 @@
 import 'package:QuizGame/answer_Button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:QuizGame/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,8 +55,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 return AnswerButton(
                     text: item,
                     func: () {
-                      changeQuestion();
                       widget.onAnswerGiven(item);
+                      changeQuestion();
                     });
               }),
             ]),
