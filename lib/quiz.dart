@@ -1,6 +1,6 @@
-import 'package:adv_basics/questions_screen.dart';
+import 'package:QuizGame/questions_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:adv_basics/start_screen.dart';
+import 'package:QuizGame/start_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -12,6 +12,12 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   // Widget? currentScreen; basic techinque
+  List<String> selectedAnswers = [];
+
+  void chooseAnswers(String ans) {
+    selectedAnswers.add(ans);
+  }
+
   var currentScreen = "start_Screen"; // using string
   @override
   Widget build(BuildContext context) {
@@ -42,14 +48,19 @@ class _QuizState extends State<Quiz> {
         : const QuestionsScreen();*/
     Widget screenWidget = StartScreen(switchScreen);
     if (currentScreen == "Questions-Screen") {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(
+        onAnswerGiven: chooseAnswers,
+      );
     }
 
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           // gradient, begin and end used by alignment with x and y cordinates
-          colors: [Colors.deepPurple, Color.fromARGB(255, 217, 51, 247)],
+          colors: [
+            Color.fromARGB(255, 138, 40, 160),
+            Color.fromARGB(255, 128, 2, 151)
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
