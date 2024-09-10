@@ -1,9 +1,32 @@
+import 'package:QuizGame/data/questions.dart';
+import 'package:QuizGame/questions_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.chosenAnswers});
+  const ResultsScreen(this.restartClicked,
+      {super.key, required this.chosenAnswers});
   final List<String> chosenAnswers;
+  final Function() restartClicked;
+
+  List<Map<String, Object>> getSummaryData() {
+    final List<Map<String, Object>> summary = [];
+
+    for (int i = 0; i < chosenAnswers.length; i++) {
+      summary.add(
+        {
+          'question_index': i,
+          'question': questions[i].text,
+          'correctAnswer': questions[i].answesr[0],
+          'user_answer': chosenAnswers[i],
+        },
+      );
+      print(questions[i].text);
+    }
+
+    return summary;
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -24,12 +47,12 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const Text("List of Answers and Questions"),
+            QuestionsSummary(getSummaryData()),
             const SizedBox(
               height: 30,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: restartClicked,
               child: const Text("Restart"),
             )
           ],

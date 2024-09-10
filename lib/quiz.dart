@@ -20,7 +20,6 @@ class _QuizState extends State<Quiz> {
     selectedAnswers.add(ans);
 
     if (selectedAnswers.length == questions.length) {
-      selectedAnswers = [];
       setState(() {
         currentScreen = "results_screen";
       });
@@ -45,6 +44,15 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void startScreen() {
+    setState(() {
+      // defined in flutter ( it rerenders) Build method re_Executes
+      //currentScreen = const QuestionsScreen(); basic method
+      currentScreen = "start_Screen"; // using string
+      selectedAnswers = [];
+    });
+  }
+
   Widget bgcolor() {
     /* final screenWidget = currentScreen == "start_Screen"
         ? StartScreen(switchScreen)
@@ -55,7 +63,10 @@ class _QuizState extends State<Quiz> {
         onAnswerGiven: chooseAnswers,
       );
     } else if (currentScreen == "results_screen") {
-      screenWidget = ResultsScreen(chosenAnswers: selectedAnswers);
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswers,
+        startScreen,
+      );
     }
 
     return Container(
